@@ -18,7 +18,7 @@ header={
 }
 request=urllib2.Request("http://www.jj20.com/bz/dwxz/",headers=header)
 response=urllib2.urlopen(request)
-print response.read().decode('gb2312').encode('utf-8')
+#print response.read().decode('gb2312').encode('utf-8')
 #现在和LABEL-1的效果一模一样
 #更复杂的还需要构造cookie,这里不追究具体方法,
 
@@ -36,9 +36,23 @@ with open("second.png","wb") as f:
     f.write(response.read())
 
 #LABEL-4
-#最好用的下载图片的办法,
+#最好用的下载图片的办法,,写一个delay,防止网站被403forbbiden
 import urllib
-path="best.png"
+
+import scrapy
+download_delay=1
+#延时下载
+path="d:\\best.png"
 url="http://zhaduixueshe.com/static/pic/discovery.png"
 urllib.urlretrieve(url,path)
 
+#正则表达式
+import urllib2
+import re
+
+reg=r'http.(d+).jpg'
+reg=re.compile(reg)
+response=urllib2.urlopen("http://www.meizitu.com")
+print response.read().decode('gb2312').encode('utf-8')
+result=re.findall(reg,response.read().decode('gb2312').encode('utf-8'))
+#print result
